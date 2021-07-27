@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:restaurant_mobile/screens/Home.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
@@ -83,7 +84,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                       });
                                       SharedPreferences prefs = await SharedPreferences.getInstance();
                                       prefs.setString("host", _hostController.text);
-
+                                      Navigator.of(context).push(
+                                        MaterialPageRoute<void>(builder: (_) => Home()),
+                                      );
                                     }
                                     else {
                                       setState(() {
