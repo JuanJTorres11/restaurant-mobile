@@ -12,7 +12,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Bienvenido"),
+        title: Text("Welcome"),
       ),
       body: Column(mainAxisAlignment: MainAxisAlignment.center, children: <
           Widget>[
@@ -30,7 +30,7 @@ class Home extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Actualiza los datos",
+                      "Load data",
                       style: TextStyle(
                         fontSize: 20,
                       ),
@@ -62,7 +62,7 @@ class Home extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Listar todos los compradores",
+                      "List all buyers",
                       style: TextStyle(
                         fontSize: 20,
                       ),
@@ -90,7 +90,7 @@ class Home extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Buscar Comprador",
+                      "Search a Buyer",
                       style: TextStyle(
                         fontSize: 20,
                       ),

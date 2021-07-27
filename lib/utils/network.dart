@@ -17,8 +17,9 @@ Future<bool> loadData(DateTime date) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var host = prefs.getString("host");
   try {
-    var r = await http.get(Uri.parse("http://$host/load/${date.millisecondsSinceEpoch~/1000}"));
-    print("http://$host/${date.millisecondsSinceEpoch~/1000}");
+    var r = await http.get(
+        Uri.parse("http://$host/load/${date.millisecondsSinceEpoch ~/ 1000}"));
+    print("http://$host/${date.millisecondsSinceEpoch ~/ 1000}");
     res = r.body;
     print(res);
   } on Exception catch (e) {

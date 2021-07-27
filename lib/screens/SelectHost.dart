@@ -17,7 +17,7 @@ class _SelectHostState extends State<SelectHost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Bienvenido"),
+        title: Text("Welcome"),
       ),
       body: Center(
           child: Form(
@@ -31,12 +31,12 @@ class _SelectHostState extends State<SelectHost> {
                         TextFormField(
                           controller: _hostController,
                           decoration: const InputDecoration(
-                              labelText: 'Ingresa la url y puerto de la API',
+                              labelText:
+                                  'Enter the url and the port of the API',
                               prefixText: "http://",
                               focusColor: Colors.grey),
                           validator: (String? value) {
-                            if (value!.isEmpty)
-                              return 'Ingresa la url y puerto';
+                            if (value!.isEmpty) return 'Enter the url and port';
                             return null;
                           },
                         ),
@@ -79,7 +79,7 @@ class _SelectHostState extends State<SelectHost> {
                                     }
                                   }
                                 },
-                                child: Text("Enviar")),
+                                child: Text("Send")),
                           ),
                         ),
                         Container(
@@ -88,7 +88,7 @@ class _SelectHostState extends State<SelectHost> {
                           child: Text(
                             _showMessage == false
                                 ? ''
-                                : "La dirección indicada es inválida",
+                                : "The address is invalid",
                             textAlign: TextAlign.center,
                             style: TextStyle(color: Colors.redAccent),
                           ),

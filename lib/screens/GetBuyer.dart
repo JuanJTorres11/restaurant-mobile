@@ -13,41 +13,41 @@ class _GetBuyerState extends State<GetBuyer> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Card(
-                child: Form(
-                  key: _formKey,
-                  child: Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Container(
-                          child: const Text(
-                            'Ingresar ID',
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          alignment: Alignment.center,
-                        ),
-                        TextFormField(
-                          controller: _dateController,
-                          decoration: const InputDecoration(labelText: 'ID'),
-                          validator: (String? value) {
-                            if (value!.isEmpty) {
-                              return 'Ingresa el ID';
-                            }
-                            return null;
-                          },
-                          keyboardType: TextInputType.datetime,
-                        ),
-                      ],
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Card(
+              child: Form(
+            key: _formKey,
+            child: Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Container(
+                    child: const Text(
+                      'Enter the ID',
+                      style: TextStyle(fontWeight: FontWeight.bold),
                     ),
+                    alignment: Alignment.center,
                   ),
-                )),
-          ),
+                  TextFormField(
+                    controller: _dateController,
+                    decoration: const InputDecoration(labelText: 'ID'),
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
+                        return 'Enter the ID';
+                      }
+                      return null;
+                    },
+                    keyboardType: TextInputType.datetime,
+                  ),
+                ],
+              ),
+            ),
+          )),
         ),
+      ),
     );
   }
 
