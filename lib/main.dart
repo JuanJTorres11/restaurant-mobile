@@ -13,14 +13,17 @@ Future<void> main() async {
     validHost = await verifyHost(host);
   }
   runApp(MyApp(
-    host: validHost,
+    validHost: validHost,
+    host: host,
   ));
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key, required this.host}) : super(key: key);
+  MyApp({Key? key, required this.validHost, required this.host})
+      : super(key: key);
 
-  final bool host;
+  final bool validHost;
+  final String? host;
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
       ),
-      home: host? Home() : SelectHost(),
+      home: validHost
+          ? Home(
+              host: host!,
+            )
+          : SelectHost(),
     );
   }
 }

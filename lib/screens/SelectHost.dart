@@ -44,7 +44,7 @@ class _SelectHostState extends State<SelectHost> {
                           padding: const EdgeInsets.all(10.0),
                           child: ConstrainedBox(
                             constraints:
-                            BoxConstraints.tightFor(width: double.infinity),
+                                BoxConstraints.tightFor(width: double.infinity),
                             child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
                                     primary: Theme.of(context)
@@ -52,23 +52,27 @@ class _SelectHostState extends State<SelectHost> {
                                     onPrimary: Colors.black, // foreground
                                     shape: new RoundedRectangleBorder(
                                       borderRadius:
-                                      new BorderRadius.circular(30.0),
+                                          new BorderRadius.circular(30.0),
                                     ),
                                     padding: EdgeInsets.all(16)),
                                 onPressed: () async {
                                   if (_formKey.currentState!.validate()) {
-                                    var con = await verifyHost(_hostController.text);
-                                    if (con){
+                                    var con =
+                                        await verifyHost(_hostController.text);
+                                    if (con) {
                                       setState(() {
                                         _showMessage = false;
                                       });
-                                      SharedPreferences prefs = await SharedPreferences.getInstance();
-                                      prefs.setString("host", _hostController.text);
+                                      SharedPreferences prefs =
+                                          await SharedPreferences.getInstance();
+                                      prefs.setString(
+                                          "host", _hostController.text);
                                       Navigator.of(context).push(
-                                        MaterialPageRoute<void>(builder: (_) => Home()),
+                                        MaterialPageRoute<void>(
+                                            builder: (_) => Home(
+                                                host: _hostController.text)),
                                       );
-                                    }
-                                    else {
+                                    } else {
                                       setState(() {
                                         _showMessage = true;
                                       });
