@@ -58,24 +58,27 @@ class _LoadDataState extends State<LoadData> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              shape: new RoundedRectangleBorder(
-                                borderRadius: new BorderRadius.circular(30.0),
-                              ),
-                              padding: EdgeInsets.all(10)),
-                          onPressed: () {
-                            loadData(_selectedDate).then((value) {
-                              setState(() {
-                                _result = value;
-                                _sended = false;
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                shape: new RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(30.0),
+                                ),
+                                padding: EdgeInsets.all(10)),
+                            onPressed: () {
+                              loadData(_selectedDate).then((value) {
+                                setState(() {
+                                  _result = value;
+                                  _sended = false;
+                                });
                               });
-                            });
-                            setState(() {
-                              _sended = true;
-                            });
-                          },
-                          child: Text("Load Data")),
+                              setState(() {
+                                _sended = true;
+                              });
+                            },
+                            child: Text("Load Data")),
+                      ),
                       _sended == true
                           ? CircularProgressIndicator()
                           : _result == null
