@@ -86,7 +86,7 @@ class _GetBuyerState extends State<GetBuyer> {
               ),
             )),
           ),
-          _sent ? _showBuyerData() : Container(),
+          _sent ? _showBasicBuyerData() : Container(),
         ],
       ),
     );
@@ -99,11 +99,11 @@ class _GetBuyerState extends State<GetBuyer> {
     super.dispose();
   }
 
-  Widget _showBuyerData() {
+  Widget _showBasicBuyerData() {
     return _buyerQuery == null
         ? Center(child: CircularProgressIndicator())
         : Expanded(
-          child: ListView(
+            child: ListView(
               children: [
                 Card(
                   child: Column(
@@ -129,152 +129,162 @@ class _GetBuyerState extends State<GetBuyer> {
                             "Age: ",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Text(
-                              _buyerQuery!['Buyer']['getBuyer']["age"].toString())
+                          Text(_buyerQuery!['Buyer']['getBuyer']["age"]
+                              .toString())
                         ]),
                         trailing: Icon(Icons.person),
                       ),
                     ],
                   ),
                 ),
-                Card(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        child: const Text(
-                          'Purchase History',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.all(10),
-                      ),
-                      Container(
-                        height: 400,
-                        child: ListView(
-                          children: _buyerQuery!['Buyer']['getBuyer']
-                                  ['transactions']
-                              .map<Widget>((transactions) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5),
-                              child: Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(5.0),
-                                  child: Column(
-                                    children: transactions['products'].map<Widget>((product) {
-                                      return Card(
-                                        child: ListTile(
-                                          title: Row(
-                                                children: [
-                                              Text(
-                                                "Name: ",
-                                                style: TextStyle(fontWeight: FontWeight.bold),
-                                              ),
-                                              Expanded(child: Text(product["name"]))
-                                            ]),
-                                          subtitle: Row(children: [
-                                            Text(
-                                              "Price: ",
-                                              style: TextStyle(fontWeight: FontWeight.bold),
-                                            ),
-                                            Text("\$${product["price"]/100} USD")
-                                          ]),
-                                          trailing: Icon(Icons.fastfood),
-                                        ),
-                                      );
-                                  }).toList(),
-                                  ),
-                                ),
-                              )
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Card(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        child: const Text(
-                          'Other Buyers in your location',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.all(10),
-                      ),
-                      Container(
-                        height: 100,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: _buyerQuery!['Other_Buyers']
-                              .map<Widget>((buyer) {
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 10),
-                              child: Container(
-                                width: 170,
-                                child: Card(
-                                  child: ListTile(
-                                    title:
-                                    Text(
-                                      buyer,
-                                      style: TextStyle(fontWeight: FontWeight.bold),
-                                    ),
-                                    trailing: Icon(Icons.person),
-                                  ),
-                                ),
-                              )
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Card(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        child: const Text(
-                          'Recommended Products',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        alignment: Alignment.center,
-                        padding: EdgeInsets.all(10),
-                      ),
-                      Container(
-                        height: 150,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: _buyerQuery!['Recommended_Products']
-                              .map<Widget>((buyers) {
-                            return Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 10),
-                                child: Container(
-                                  width: 170,
-                                  child: Card(
-                                    child: ListTile(
-                                      title:
-                                      Text(
-                                        buyers,
-                                        style: TextStyle(fontWeight: FontWeight.bold),
-                                      ),
-                                      trailing: Icon(Icons.fastfood),
-                                    ),
-                                  ),
-                                )
-                            );
-                          }).toList(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                _buyerQuery!['Other_Buyers'] != null
+                    ? Column(children: _showMoreBuyerData())
+                    : Padding(
+                        padding: const EdgeInsets.only(top: 100.0),
+                        child: Center(
+                            child: Text(
+                          "This buyer has no purchase history",
+                          style: TextStyle(fontSize: 20),
+                        )),
+                      )
               ],
             ),
-        );
+          );
+  }
+
+  List<Widget> _showMoreBuyerData() {
+    return [
+      Card(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              child: const Text(
+                'Purchase History',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(10),
+            ),
+            Container(
+              height: 400,
+              child: ListView(
+                children: _buyerQuery!['Buyer']['getBuyer']['transactions']
+                    .map<Widget>((transactions) {
+                  return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(5.0),
+                          child: Column(
+                            children:
+                                transactions['products'].map<Widget>((product) {
+                              return Card(
+                                child: ListTile(
+                                  title: Row(children: [
+                                    Text(
+                                      "Name: ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Expanded(child: Text(product["name"]))
+                                  ]),
+                                  subtitle: Row(children: [
+                                    Text(
+                                      "Price: ",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text("\$${product["price"] / 100} USD")
+                                  ]),
+                                  trailing: Icon(Icons.fastfood),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ));
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
+      ),
+      Card(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              child: const Text(
+                'Other Buyers in your location',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(10),
+            ),
+            Container(
+              height: 100,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: _buyerQuery!['Other_Buyers'].map<Widget>((buyer) {
+                  return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Container(
+                        width: 170,
+                        child: Card(
+                          child: ListTile(
+                            title: Text(
+                              buyer,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            trailing: Icon(Icons.person),
+                          ),
+                        ),
+                      ));
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
+      ),
+      Card(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              child: const Text(
+                'Recommended Products',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(10),
+            ),
+            Container(
+              height: 150,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children:
+                    _buyerQuery!['Recommended_Products'].map<Widget>((buyers) {
+                  return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Container(
+                        width: 170,
+                        child: Card(
+                          child: ListTile(
+                            title: Text(
+                              buyers,
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            trailing: Icon(Icons.fastfood),
+                          ),
+                        ),
+                      ));
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
+      )
+    ];
   }
 }
