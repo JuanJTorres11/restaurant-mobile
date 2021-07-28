@@ -21,7 +21,7 @@ class Home extends StatelessWidget {
           child: Card(
             child: TextButton(
               onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute<void>(builder: (_) => LoadData()),
+                MaterialPageRoute<void>(builder: (_) => LoadData(host: host)),
               ),
               child: Padding(
                 padding:
@@ -81,8 +81,9 @@ class Home extends StatelessWidget {
           padding: const EdgeInsets.all(15.0),
           child: Card(
             child: TextButton(
-              onPressed: () => Navigator.of(context)
-                  .push(MaterialPageRoute<void>(builder: (_) => GetBuyer())),
+              onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                      builder: (_) => GetBuyer(host: host))),
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 18, vertical: 35),

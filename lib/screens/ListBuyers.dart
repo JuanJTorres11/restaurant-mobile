@@ -52,14 +52,14 @@ class _ListBuyersState extends State<ListBuyers> {
                       child: ListTile(
                         title: Row(children: [
                           Text(
-                            "Nombre: ",
+                            "Name: ",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(buyer["name"])
                         ]),
                         subtitle: Row(children: [
                           Text(
-                            "Edad: ",
+                            "Age: ",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                           Text(buyer["age"].toString())

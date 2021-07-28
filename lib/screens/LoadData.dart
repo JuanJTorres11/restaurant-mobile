@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_mobile/utils/network.dart';
 
 class LoadData extends StatefulWidget {
+  LoadData({Key? key, required this.host}) : super(key: key);
+
+  final String host;
+
   @override
   State<StatefulWidget> createState() => _LoadDataState();
 }
@@ -10,7 +14,7 @@ class LoadData extends StatefulWidget {
 class _LoadDataState extends State<LoadData> {
   var _selectedDate = DateTime.now();
   var _result;
-  var _sended = false;
+  var _sent = false;
 
   @override
   Widget build(BuildContext context) {
@@ -67,19 +71,20 @@ class _LoadDataState extends State<LoadData> {
                                 ),
                                 padding: EdgeInsets.all(10)),
                             onPressed: () {
-                              loadData(_selectedDate).then((value) {
+                              loadData(widget.host, _selectedDate)
+                                  .then((value) {
                                 setState(() {
                                   _result = value;
-                                  _sended = false;
+                                  _sent = false;
                                 });
                               });
                               setState(() {
-                                _sended = true;
+                                _sent = true;
                               });
                             },
                             child: Text("Load Data")),
                       ),
-                      _sended == true
+                      _sent == true
                           ? CircularProgressIndicator()
                           : _result == null
                               ? Container()

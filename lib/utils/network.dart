@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:restaurant_mobile/models/Buyer.dart';
 
 Future<bool> verifyHost(String url) async {
   String? res;
@@ -12,10 +14,8 @@ Future<bool> verifyHost(String url) async {
   return res == "hello world";
 }
 
-Future<bool> loadData(DateTime date) async {
+Future<bool> loadData(String host, DateTime date) async {
   String? res;
-  SharedPreferences prefs = await SharedPreferences.getInstance();
-  var host = prefs.getString("host");
   try {
     var r = await http.get(
         Uri.parse("http://$host/load/${date.millisecondsSinceEpoch ~/ 1000}"));
@@ -24,4 +24,15 @@ Future<bool> loadData(DateTime date) async {
     print(e);
   }
   return res!.contains("Success");
+}
+
+Future<dynamic> getBuyerData(String host, String id) async {
+  var res;
+  try {
+    var r = await http.get(Uri.parse("http://$host/buyers/$id"));
+    res = jsonDecode(r.body);
+  } on Exception catch (e) {
+    print(e);
+  }
+  return res;
 }
